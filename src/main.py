@@ -5,9 +5,9 @@ import os
 from actions import core
 from github import Auth, Github, GithubException
 
-from context import Context
-
-context = Context()
+import context
+# from ctx import Context
+# context = Context()
 
 version = core.get_version()
 print(f"🏳️ Starting Python Test Action - \033[32;1m{version}")
