@@ -2,12 +2,9 @@ import json
 import os
 
 # noinspection PyPackageRequirements
-from actions import core
+from actions import core, context
 from github import Auth, Github, GithubException
 
-import context
-# from ctx import Context
-# context = Context()
 
 version = core.get_version()
 print(f"🏳️ Starting Python Test Action - \033[32;1m{version}")
@@ -29,45 +26,39 @@ summary: bool = core.get_bool("summary")
 print(f"summary: \033[33;1m{summary}")
 token: str = core.get_input("token")
 print(f"token: \033[36;1m{token}")
-data: dict = core.get_data("data")
+data: dict = core.get_dict("data")
 print(f"data: \033[35;1m{data}")
 
+
+# Action
 
 event: dict = core.get_event()
 print("::group::GitHub Event Data")
 print(json.dumps(event, indent=4))
 print("::endgroup::")
 
-repository: dict = event.get("repository", {})
-full_name: str = repository.get("full_name", "")
-print(f"full_name: {full_name}")
+# repository: dict = event.get("repository", {})
+# full_name: str = repository.get("full_name", "")
+# print(f"full_name: {full_name}")
 # owner: str = full_name.split("/")[0]
 # print(f"owner: {owner}")
 # repo: str = full_name.split("/")[1]
 # print(f"repo: {repo}")
 
-sha: str = os.environ.get("GITHUB_SHA", "")
-print(f"sha: {sha}")
-
-
-# Action
-
-
-# context = {}
-# for ctx in contexts:
-#     context[ctx] = os.environ.get(f"GITHUB_{ctx}".upper())
-
-# context = GitHubContext()
-print(f"context.sha: {context.sha}")
 print(f"context.repository: {context.repository}")
+print(f"context.sha: {context.sha}")
+
+sha: str = os.environ.get("GITHUB_SHA", "")
+print(f"GITHUB_SHA: {sha}")
+
 
 print("::group::GitHub Context Data")
-print(vars(context))
+print({k: v for k, v in vars(context).items() if not k.startswith("__")})
 print("::endgroup::")
 
 
 g = Github(auth=Auth.Token(token))
-r = g.get_repo(f"{full_name}")
+r = g.get_repo(f"{context.repository}")
 print(f"repo.name: {r.name}")
 print(f"repo.full_name: {r.full_name}")
 
