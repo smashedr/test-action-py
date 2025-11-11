@@ -1,7 +1,7 @@
 import os
 
 
-class GitHubContext:
+class Context:
     def __init__(self):
         self.action = os.environ.get("GITHUB_ACTION")
         self.action_ref = os.environ.get("GITHUB_ACTION_REF")

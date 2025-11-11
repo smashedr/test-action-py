@@ -5,7 +5,9 @@ import os
 from actions import core
 from github import Auth, Github, GithubException
 
-from retard2 import GitHubContext
+from retard2 import Context
+
+context = Context()
 
 version = core.get_version()
 print(f"🏳️ Starting Python Test Action - \033[32;1m{version}")
@@ -55,7 +57,7 @@ print(f"sha: {sha}")
 # for ctx in contexts:
 #     context[ctx] = os.environ.get(f"GITHUB_{ctx}".upper())
 
-context = GitHubContext()
+# context = GitHubContext()
 print(f"context.sha: {context.sha}")
 print(f"context.repository: {context.repository}")
 
