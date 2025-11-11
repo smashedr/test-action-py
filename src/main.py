@@ -49,6 +49,54 @@ print(f"sha: {sha}")
 
 # Action
 
+contexts = [
+    "action",
+    "action_ref",
+    "action_repository",
+    "actions",
+    "actor",
+    "actor_id",
+    "api_url",
+    "base_ref",
+    "env",
+    "event_name",
+    "event_path",
+    "graphql_url",
+    "head_ref",
+    "job",
+    "output",
+    "path",
+    "ref",
+    "ref_name",
+    "ref_protected",
+    "ref_type",
+    "repository",
+    "repository_id",
+    "repository_owner",
+    "repository_owner_id",
+    "retention_days",
+    "run_attempt",
+    "run_id",
+    "run_number",
+    "server_url",
+    "sha",
+    "step_summary",
+    "triggering_actor",
+    "workflow",
+    "workflow_ref",
+    "workflow_sha",
+    "workspace",
+]
+
+context = {}
+for ctx in contexts:
+    context[ctx] = os.environ.get(f"GITHUB_{ctx}".upper())
+
+print("::group::GitHub Context Data")
+print(json.dumps(context, indent=4))
+print("::endgroup::")
+
+
 g = Github(auth=Auth.Token(token))
 r = g.get_repo(f"{full_name}")
 print(f"repo.name: {r.name}")
