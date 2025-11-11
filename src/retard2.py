@@ -2,43 +2,6 @@ import os
 
 
 class GitHubContext:
-    action: str | None
-    action_ref: str | None
-    action_repository: str | None
-    actions: str | None
-    actor: str | None
-    actor_id: str | None
-    api_url: str | None
-    base_ref: str | None
-    env: str | None
-    event_name: str | None
-    event_path: str | None
-    graphql_url: str | None
-    head_ref: str | None
-    job: str | None
-    output: str | None
-    path: str | None
-    ref: str | None
-    ref_name: str | None
-    ref_protected: str | None
-    ref_type: str | None
-    repository: str | None
-    repository_id: str | None
-    repository_owner: str | None
-    repository_owner_id: str | None
-    retention_days: str | None
-    run_attempt: str | None
-    run_id: str | None
-    run_number: str | None
-    server_url: str | None
-    sha: str | None
-    step_summary: str | None
-    triggering_actor: str | None
-    workflow: str | None
-    workflow_ref: str | None
-    workflow_sha: str | None
-    workspace: str | None
-
     def __init__(self):
         self.action = os.environ.get("GITHUB_ACTION")
         self.action_ref = os.environ.get("GITHUB_ACTION_REF")
