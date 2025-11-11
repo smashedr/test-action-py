@@ -36,7 +36,7 @@ print(json.dumps(event, indent=4))
 print("::endgroup::")
 
 repository: dict = event.get("repository", {})
-full_name: str = repository.get("full_name")
+full_name: str = repository.get("full_name", "")
 print(f"full_name: {full_name}")
 # owner: str = full_name.split("/")[0]
 # print(f"owner: {owner}")
@@ -88,7 +88,7 @@ with open(os.environ["GITHUB_OUTPUT"], "a") as f:
 if summary:
     inputs_table = ["<table><tr><th>Input</th><th>Value</th></tr>"]
     for x in ["tag", "summary"]:
-        value = globals()[f"input_{x}"]
+        value = globals()[x]
         inputs_table.append(f"<tr><td>{x}</td><td>{value or '-'}</td></tr>")
     inputs_table.append("</table>")
 
