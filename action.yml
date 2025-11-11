@@ -1,0 +1,27 @@
+name: "Python Test Action"
+description: "Python Test Action."
+author: "Shane"
+branding:
+  icon: "type"
+  color: "green"
+
+inputs:
+  tag:
+    description: "Tag to Create or Update"
+    default: "test"
+  data:
+    description: "Example Data Input"
+  summary:
+    description: "Add Summary to Job"
+    default: "true"
+  token:
+    description: "GitHub Token"
+    default: ${{ github.token }}
+
+outputs:
+  sha:
+    description: "Tag Hash"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
