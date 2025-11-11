@@ -5,7 +5,7 @@ import os
 from actions import core
 from github import Auth, Github, GithubException
 
-from retard2 import Context
+from context import Context
 
 context = Context()
 
