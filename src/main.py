@@ -80,8 +80,7 @@ core.info(f"ref.object.sha: {ref.object.sha}")
 # Outputs
 # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter
 
-with open(os.environ["GITHUB_OUTPUT"], "a") as f:
-    print(f"sha={context.sha}", file=f)  # type: ignore
+core.set_output("sha", context.sha)
 
 
 # Summary
@@ -94,11 +93,16 @@ if summary:
         inputs_table.append(f"<tr><td>{x}</td><td>{value or '-'}</td></tr>")
     inputs_table.append("</table>")
 
-    with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
-        print("### Python Test Action", file=f)  # type: ignore
-        print(f"{result}: [{ref.ref}]({r.html_url}/releases/tag/{tag}) ➡️ `{context.sha}`", file=f)  # type: ignore
-        print(f"<details><summary>Inputs</summary>{''.join(inputs_table)}</details>\n", file=f)  # type: ignore
-        print(f"[Report an issue or request a feature]({r.html_url}/issues)", file=f)  # type: ignore
+    # with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
+    #     print("### Python Test Action", file=f)  # type: ignore
+    #     print(f"{result}: [{ref.ref}]({r.html_url}/releases/tag/{tag}) ➡️ `{context.sha}`", file=f)  # type: ignore
+    #     print(f"<details><summary>Inputs</summary>{''.join(inputs_table)}</details>\n", file=f)  # type: ignore
+    #     print(f"[Report an issue or request a feature]({r.html_url}/issues)", file=f)  # type: ignore
+
+    core.summary("### Python Test Action")
+    core.summary(f"{result}: [{ref.ref}]({r.html_url}/releases/tag/{tag}) ➡️ `{context.sha}`")
+    core.summary(f"<details><summary>Inputs</summary>{''.join(inputs_table)}</details>\n")
+    core.summary(f"[Report an issue or request a feature]({r.html_url}/issues)")
 
 
 print("✅ \u001b[32;1mFinished Success")
