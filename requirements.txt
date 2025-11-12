@@ -1,4 +1,4 @@
-PyGitHub>=2,<3
+PyGithub>=2,<3
 actions-tools
 
 #--extra-index-url https://test.pypi.org/simple/
