@@ -13,9 +13,13 @@ print(f"🏳️ Starting Python Test Action - \033[32;1m{version}")
 # Debug
 
 print(f"GITHUB_ACTION: {os.environ.get('GITHUB_ACTION')}")
+print(f"context.action: {context.action}")
 print(f"GITHUB_ACTION_REPOSITORY: {os.environ.get('GITHUB_ACTION_REPOSITORY')}")
+print(f"context.action_repository: {context.action_repository}")
 print(f"GITHUB_REF: {os.environ.get('GITHUB_REF')}")
+print(f"context.ref: {context.ref}")
 print(f"GITHUB_REF_NAME: {os.environ.get('GITHUB_REF_NAME')}")
+print(f"context.ref_name: {context.ref_name}")
 
 
 # Inputs
@@ -37,6 +41,14 @@ print("::group::GitHub Event Data")
 print(json.dumps(event, indent=4))
 print("::endgroup::")
 
+
+ctx = {k: v for k, v in vars(context).items() if not k.startswith("__")}
+del ctx["os"]
+print("::group::GitHub Context Data")
+print(json.dumps(ctx, indent=4))
+print("::endgroup::")
+
+
 # repository: dict = event.get("repository", {})
 # full_name: str = repository.get("full_name", "")
 # print(f"full_name: {full_name}")
@@ -45,16 +57,9 @@ print("::endgroup::")
 # repo: str = full_name.split("/")[1]
 # print(f"repo: {repo}")
 
+
 print(f"context.repository: {context.repository}")
 print(f"context.sha: {context.sha}")
-
-sha: str = os.environ.get("GITHUB_SHA", "")
-print(f"GITHUB_SHA: {sha}")
-
-
-print("::group::GitHub Context Data")
-print({k: v for k, v in vars(context).items() if not k.startswith("__")})
-print("::endgroup::")
 
 
 g = Github(auth=Auth.Token(token))
@@ -64,16 +69,16 @@ print(f"repo.full_name: {r.full_name}")
 
 try:
     ref = r.get_git_ref(f"tags/{tag}")
-    if ref.object.sha != sha:
+    if ref.object.sha != context.sha:
         print(f"Updating: {tag} -> {ref.object.sha}")
-        ref.edit(sha, True)
+        ref.edit(context.sha, True)
         result = "Updated"
     else:
         print(f"Unchanged: {tag} -> {ref.object.sha}")
         result = "Unchanged"
 
 except GithubException:
-    ref = r.create_git_ref(f"refs/tags/{tag}", sha)
+    ref = r.create_git_ref(f"refs/tags/{tag}", context.sha)
     print(f"Created: {ref.ref} -> {ref.object.sha}")
     result = "Created"
 
@@ -87,7 +92,7 @@ print(f"ref.object.sha: {ref.object.sha}")
 # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter
 
 with open(os.environ["GITHUB_OUTPUT"], "a") as f:
-    print(f"sha={sha}", file=f)  # type: ignore
+    print(f"sha={context.sha}", file=f)  # type: ignore
 
 
 # Summary
