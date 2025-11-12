@@ -40,6 +40,7 @@ repository: dict = event.get("repository", {})
 full_name: str = repository.get("full_name", "")
 core.info(f"repository.full_name: {full_name}")
 
+core.info(f"context.repository_name: {context.repository_name}")
 
 # Action
 
