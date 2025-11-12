@@ -37,25 +37,28 @@ core.info("::endgroup::")
 
 
 repository: dict = event.get("repository", {})
+html_url: str = repository.get("html_url", "")
+core.info(f"repository.html_url: {html_url}")
 full_name: str = repository.get("full_name", "")
 core.info(f"repository.full_name: {full_name}")
 
 core.info(f"context.repository_owner: {context.repository_owner}")
 core.info(f"context.repository_name: {context.repository_name}")
 
-
-# Action
-
 core.info(f"context.repository: {context.repository}")
 core.info(f"context.sha: {context.sha}")
 
+
+# Action
+# https://github.com/PyGithub/PyGithub
+
 g = Github(auth=Auth.Token(token))
-r = g.get_repo(f"{context.repository}")
-core.info(f"repo.name: {r.name}")
-core.info(f"repo.full_name: {r.full_name}")
+repo = g.get_repo(f"{context.repository}")
+core.info(f"repo.name: {repo.name}")
+core.info(f"repo.full_name: {repo.full_name}")
 
 try:
-    ref = r.get_git_ref(f"tags/{tag}")
+    ref = repo.get_git_ref(f"tags/{tag}")
     if ref.object.sha != context.sha:
         core.info(f"Updating: {tag} -> {ref.object.sha}")
         ref.edit(context.sha, True)
@@ -65,7 +68,7 @@ try:
         result = "Unchanged"
 
 except GithubException:
-    ref = r.create_git_ref(f"refs/tags/{tag}", context.sha)
+    ref = repo.create_git_ref(f"refs/tags/{tag}", context.sha)
     core.info(f"Created: {ref.ref} -> {ref.object.sha}")
     result = "Created"
 
@@ -92,9 +95,9 @@ if summary:
     inputs_table.append("</table>")
 
     core.summary("### Python Test Action")
-    core.summary(f"{result}: [{ref.ref}]({r.html_url}/releases/tag/{tag}) ➡️ `{context.sha}`")
+    core.summary(f"{result}: [{ref.ref}]({html_url}/releases/tag/{tag}) ➡️ `{context.sha}`")
     core.summary(f"<details><summary>Inputs</summary>{''.join(inputs_table)}</details>\n")
-    core.summary(f"[Report an issue or request a feature]({r.html_url}/issues)")
+    core.summary(f"[Report an issue or request a feature]({html_url}/issues)")
 
 
 print("✅ \u001b[32;1mFinished Success")
