@@ -1,18 +1,17 @@
 import json
-import os
 
 # noinspection PyPackageRequirements
-from actions import core, context
+from actions import context, core
 from github import Auth, Github, GithubException
 
 
-version = core.get_version()
+version: str = core.get_version()
 core.info(f"🏳️ Starting Python Test Action - \033[32;1m{version}")
 
 
 # Inputs
 
-tag = core.get_input("tag")
+tag: str = core.get_input("tag")
 core.info(f"tag: \033[36;1m{tag}")
 summary: bool = core.get_bool("summary")
 core.info(f"summary: \033[33;1m{summary}")
@@ -37,13 +36,9 @@ core.info(json.dumps(ctx, indent=4))
 core.info("::endgroup::")
 
 
-# repository: dict = event.get("repository", {})
-# full_name: str = repository.get("full_name", "")
-# core.info(f"full_name: {full_name}")
-# owner: str = full_name.split("/")[0]
-# core.info(f"owner: {owner}")
-# repo: str = full_name.split("/")[1]
-# core.info(f"repo: {repo}")
+repository: dict = event.get("repository", {})
+full_name: str = repository.get("full_name", "")
+core.info(f"repository.full_name: {full_name}")
 
 
 # Action
