@@ -107,7 +107,7 @@ if summary:
 
     with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
         print("### Python Test Action", file=f)  # type: ignore
-        print(f"{result}: [{ref.ref}]({r.html_url}/releases/tag/{tag}) ➡️ `{sha}`", file=f)  # type: ignore
+        print(f"{result}: [{ref.ref}]({r.html_url}/releases/tag/{tag}) ➡️ `{context.sha}`", file=f)  # type: ignore
         print(f"<details><summary>Inputs</summary>{''.join(inputs_table)}</details>\n", file=f)  # type: ignore
         print(f"[Report an issue or request a feature]({r.html_url}/issues)", file=f)  # type: ignore
 
