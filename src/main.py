@@ -40,7 +40,9 @@ repository: dict = event.get("repository", {})
 full_name: str = repository.get("full_name", "")
 core.info(f"repository.full_name: {full_name}")
 
+core.info(f"context.repository_owner: {context.repository_owner}")
 core.info(f"context.repository_name: {context.repository_name}")
+
 
 # Action
 
@@ -76,7 +78,7 @@ core.info(f"ref.object.sha: {ref.object.sha}")
 # Outputs
 # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter
 
-core.set_output("sha", context.sha)
+core.set_output("sha", ref.object.sha)
 
 
 # Summary
@@ -88,12 +90,6 @@ if summary:
         value = globals()[x]
         inputs_table.append(f"<tr><td>{x}</td><td>{value or '-'}</td></tr>")
     inputs_table.append("</table>")
-
-    # with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
-    #     print("### Python Test Action", file=f)  # type: ignore
-    #     print(f"{result}: [{ref.ref}]({r.html_url}/releases/tag/{tag}) ➡️ `{context.sha}`", file=f)  # type: ignore
-    #     print(f"<details><summary>Inputs</summary>{''.join(inputs_table)}</details>\n", file=f)  # type: ignore
-    #     print(f"[Report an issue or request a feature]({r.html_url}/issues)", file=f)  # type: ignore
 
     core.summary("### Python Test Action")
     core.summary(f"{result}: [{ref.ref}]({r.html_url}/releases/tag/{tag}) ➡️ `{context.sha}`")

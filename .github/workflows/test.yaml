@@ -64,9 +64,16 @@ jobs:
 
       - name: "Validate Outputs"
         if: ${{ !github.event.act }}
+        env:
+          sha: ${{ steps.test.outputs.sha }}
         run: |
-          echo "sha: '${{ steps.test.outputs.sha }}'"
-          if [ -z '${{ steps.test.outputs.sha }}' ];then
+          echo "sha: ${sha}"
+          if [ -z "${sha}" ];then
             echo "No Output: sha"
+            exit 1
+          fi
+          echo "GITHUB_SHA: ${GITHUB_SHA}"
+          if [ "${sha}" != "${GITHUB_SHA}" ];then
+            echo "Invalid Output: sha"
             exit 1
           fi
