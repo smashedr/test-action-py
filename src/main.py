@@ -2,7 +2,9 @@ import json
 
 # noinspection PyPackageRequirements
 from actions import context, core
-from github import Auth, Github, GithubException
+
+# noinspection PyPackageRequirements
+from github import GithubException
 
 
 version: str = core.get_version()
@@ -11,14 +13,14 @@ core.info(f"🏳️ Starting Python Test Action - \033[32;1m{version}")
 
 # Inputs
 
-tag: str = core.get_input("tag")
+tag: str = core.get_input("tag", True)
 core.info(f"tag: \033[36;1m{tag}")
-summary: bool = core.get_bool("summary")
-core.info(f"summary: \033[33;1m{summary}")
-token: str = core.get_input("token")
-core.info(f"token: \033[36;1m{token}")
 data: dict = core.get_dict("data")
 core.info(f"data: \033[35;1m{data}")
+summary: bool = core.get_bool("summary")
+core.info(f"summary: \033[33;1m{summary}")
+token: str = core.get_input("token", True)
+core.info(f"token: \033[36;1m{token}")
 
 
 # Debug
@@ -52,7 +54,8 @@ core.info(f"context.sha: {context.sha}")
 # Action
 # https://github.com/PyGithub/PyGithub
 
-g = Github(auth=Auth.Token(token))
+# g = Github(auth=Auth.Token(token))
+g = core.get_github(token)
 repo = g.get_repo(f"{context.repository}")
 core.info(f"repo.name: {repo.name}")
 core.info(f"repo.full_name: {repo.full_name}")

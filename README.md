@@ -16,6 +16,11 @@ For action templates, see:
 - [py-test-action](https://github.com/smashedr/py-test-action?tab=readme-ov-file#readme) - Python (Dockerfile)
 - [docker-test-action](https://github.com/smashedr/docker-test-action?tab=readme-ov-file#readme) - Docker (Image)
 
+For actions tools, see:
+
+- https://actions-tools.cssnr.com/
+- https://github.com/cssnr/actions-tools
+
 # Development
 
 1. Install `act`: https://nektosact.com/installation/index.html
