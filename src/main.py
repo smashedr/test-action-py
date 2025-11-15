@@ -27,13 +27,13 @@ core.info(f"token: \033[36;1m{token}")
 
 # Debug
 
-with core.group("uv"):
-    functions.check_output("uv -V")
-    functions.check_output("uv python dir")
-    functions.check_output("uv tool dir")
-    functions.check_output("uv tool list")
-    functions.check_output("uv tree")
-    # functions.check_output("uv pip tree")
+with core.group("Debug uv"):
+    functions.check_output("uv -V", False)
+    functions.check_output("uv python dir", False)
+    functions.check_output("uv tool dir", False)
+    functions.check_output("uv tool list", False)
+    functions.check_output("uv tree", False)
+    # functions.check_output("uv pip tree", False)
 
 
 event: dict = core.get_event()
@@ -47,20 +47,19 @@ with core.group("GitHub Context Data"):
     core.info(json.dumps(ctx, indent=4))
 
 
-core.start_indent()
-core.info(f"context.repository_owner: {context.repository_owner}")
-core.info(f"context.repository_name: {context.repository_name}")
-
-core.info(f"context.repository: {context.repository}")
-core.info(f"context.sha: {context.sha}")
-core.end_indent()
-
-
 repository: dict = event.get("repository", {})
 html_url: str = repository.get("html_url", "")
 core.info(f"repository.html_url: {html_url}")
 full_name: str = repository.get("full_name", "")
 core.info(f"repository.full_name: {full_name}")
+
+
+core.start_indent()
+core.info(f"context.repository_owner: {context.repository_owner}")
+core.info(f"context.repository_name: {context.repository_name}")
+core.info(f"context.repository: {context.repository}")
+core.info(f"context.sha: {context.sha}")
+core.end_indent()
 
 
 # Action
@@ -75,16 +74,16 @@ core.info(f"repo.full_name: {repo.full_name}")
 try:
     ref = repo.get_git_ref(f"tags/{tag}")
     if ref.object.sha != context.sha:
-        core.info(f"Updating: {tag} -> {ref.object.sha}")
+        core.info(f"Updating: \033[36;1m{tag}\033[0m -> \033[34;1m{ref.object.sha}")
         ref.edit(context.sha, True)
         result = "Updated"
     else:
-        core.info(f"Unchanged: {tag} -> {ref.object.sha}")
+        core.info(f"Unchanged: \033[36;1m{tag}\033[0m -> \033[34;1m{ref.object.sha}")
         result = "Unchanged"
 
 except GithubException:
     ref = repo.create_git_ref(f"refs/tags/{tag}", context.sha)
-    core.info(f"Created: {ref.ref} -> {ref.object.sha}")
+    core.info(f"Created: \033[36;1m{ref.ref}\033[0m -> \033[34;1m{ref.object.sha}")
     result = "Created"
 
 g.close()
