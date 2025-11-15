@@ -35,16 +35,14 @@ with core.group("which uv"):
 
 
 event: dict = core.get_event()
-core.info("::group::GitHub Event Data")
-core.info(json.dumps(event, indent=4))
-core.info("::endgroup::")
+with core.group("GitHub Event Data"):
+    core.info(json.dumps(event, indent=4))
 
 
 ctx = {k: v for k, v in vars(context).items() if not k.startswith("__")}
 del ctx["os"]
-core.info("::group::GitHub Context Data")
-core.info(json.dumps(ctx, indent=4))
-core.info("::endgroup::")
+with core.group("GitHub Context Data"):
+    core.info(json.dumps(ctx, indent=4))
 
 
 repository: dict = event.get("repository", {})
@@ -52,6 +50,7 @@ html_url: str = repository.get("html_url", "")
 core.info(f"repository.html_url: {html_url}")
 full_name: str = repository.get("full_name", "")
 core.info(f"repository.full_name: {full_name}")
+
 
 core.info(f"context.repository_owner: {context.repository_owner}")
 core.info(f"context.repository_name: {context.repository_name}")
