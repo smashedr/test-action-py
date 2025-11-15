@@ -46,7 +46,7 @@ jobs:
         if: ${{ !github.event.act }}
         continue-on-error: true
         run: |
-          uv run python -V
+          uvx python -V
           uv python dir
           echo "::group::uv tree"
           uv tree
@@ -69,12 +69,12 @@ jobs:
       - name: "Mypy"
         if: ${{ !cancelled() }}
         run: |
-          uv run mypy src
+          uvx mypy src
 
       - name: "Bandit"
         if: ${{ !cancelled() }}
         run: |
-          uv run bandit -c pyproject.toml -r src
+          uvx bandit -c pyproject.toml -r src
 
       - name: "Prettier"
         if: ${{ !cancelled() }}
