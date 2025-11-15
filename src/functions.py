@@ -9,4 +9,4 @@ def check_output(*args, throw=False) -> Optional[str]:
     except Exception as error:
         if throw:
             raise error
-        return None
+        return ""
