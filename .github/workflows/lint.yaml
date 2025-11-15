@@ -30,6 +30,12 @@ jobs:
           GITHUB_CTX: ${{ toJSON(github) }}
         run: echo "$GITHUB_CTX"
 
+      - name: "Debug"
+        if: ${{ !github.event.act }}
+        continue-on-error: true
+        run: |
+          tree .
+
       - name: "Setup Python 3.13"
         uses: actions/setup-python@v5
         with:
