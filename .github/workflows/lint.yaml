@@ -48,6 +48,9 @@ jobs:
         run: |
           uv run python -V
           uv python dir
+          echo "::group::uv pip list"
+          uv pip list
+          echo "::endgroup::"
           echo "::group::uv tree"
           uv tree
           echo "::endgroup::"

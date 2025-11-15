@@ -24,7 +24,7 @@ core.info(f"token: \033[36;1m{token}")
 
 # Debug
 
-with core.group("Debug uv"):
+with core.group("Debug UV"):
     functions.check_output("uv -V", False)
     functions.check_output("uv python dir", False)
     functions.check_output("uv tool dir", False)
