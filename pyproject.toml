@@ -1,3 +1,12 @@
+# Project
+[project]
+name = "test-action-py"
+version = "0.0.1"
+requires-python = ">=3.10"
+dependencies = [
+    "actions-tools[github]>=0.2.0",
+]
+
 #Bandit
 # https://bandit.readthedocs.io/en/latest/config.html
 [tool.bandit]

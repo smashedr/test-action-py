@@ -4,9 +4,16 @@ LABEL org.opencontainers.image.source="https://github.com/smashedr/py-test-actio
 LABEL org.opencontainers.image.description="Python Test Action"
 LABEL org.opencontainers.image.authors="smashedr"
 
-COPY requirements.txt /
-# hadolint ignore=DL3013,DL3042
-RUN uv pip install --system  -r requirements.txt
+# Enable bytecode compilation
+ENV UV_COMPILE_BYTECODE=1
+# Copy from the cache instead of linking since it's a mounted volume
+ENV UV_LINK_MODE=copy
+# Ensure installed tools can be executed out of the box
+ENV UV_TOOL_BIN_DIR=/usr/local/bin
+
+COPY pyproject.toml uv.lock /
+RUN uv sync --locked --no-dev
 
 COPY src /src
+ENV PATH="/.venv/bin:$PATH"
 ENTRYPOINT ["python", "/src/main.py"]

@@ -27,13 +27,13 @@ core.info(f"token: \033[36;1m{token}")
 
 # Debug
 
-
-with core.group("python"):
-    functions.check_output(["which", "python"], silent=False)
-    functions.check_output(["python", "-V"], silent=False)
 with core.group("uv"):
-    functions.check_output(["which", "uv"], silent=False)
-    functions.check_output(["uv", "-V"], silent=False)
+    functions.check_output("uv -V")
+    functions.check_output("uv python dir")
+    functions.check_output("uv tool dir")
+    functions.check_output("uv tool list")
+    functions.check_output("uv tree")
+    # functions.check_output("uv pip tree")
 
 
 event: dict = core.get_event()
