@@ -47,7 +47,8 @@ jobs:
         uses: astral-sh/setup-uv@v6
 
       - name: Set up Python
-        run: uv python install
+        run: |
+          uv python install
 
       #- name: "Install"
       #  run: |
@@ -55,12 +56,13 @@ jobs:
       #    python -m pip install -r requirements.txt -r requirements-dev.txt
 
       - name: Install the project
-        run: uv sync --locked --all-extras --dev
+        run: |
+          uv sync --locked --all-extras --dev
 
       - name: "Flake8"
         if: ${{ !cancelled() }}
         run: |
-          flake8 --max-line-length 119 --extend-exclude ".github" .
+          uv run flake8 --max-line-length 119 --extend-exclude ".github" .
 
       - name: "Ruff"
         if: ${{ !cancelled() }}
@@ -79,12 +81,12 @@ jobs:
       - name: "Mypy"
         if: ${{ !cancelled() }}
         run: |
-          mypy src
+          uv run mypy src
 
       - name: "Bandit"
         if: ${{ !cancelled() }}
         run: |
-          bandit -c pyproject.toml -r src
+          uv run bandit -c pyproject.toml -r src
 
       - name: "Prettier"
         if: ${{ !cancelled() }}
