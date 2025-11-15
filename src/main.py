@@ -45,14 +45,14 @@ with core.group("GitHub Context Data"):
     core.info(json.dumps(ctx, indent=4))
 
 
+core.start_indent()
 repository: dict = event.get("repository", {})
 html_url: str = repository.get("html_url", "")
 core.info(f"repository.html_url: {html_url}")
 full_name: str = repository.get("full_name", "")
 core.info(f"repository.full_name: {full_name}")
 
-
-core.start_indent()
+core.start_indent(4)
 core.info(f"context.repository_owner: {context.repository_owner}")
 core.info(f"context.repository_name: {context.repository_name}")
 
