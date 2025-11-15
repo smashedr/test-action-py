@@ -1,11 +1,12 @@
 import subprocess  # nosec
-from typing import Optional
 
 
-def check_output(*args, throw=False) -> Optional[str]:
+def check_output(*args, throw=False, silent=True) -> str:
     try:
-        out = subprocess.check_output(*args).decode()  # nosec
-        return out.strip()
+        out = subprocess.check_output(*args).decode().strip()  # nosec
+        if not silent:
+            print(out)
+        return out
     except Exception as error:
         if throw:
             raise error

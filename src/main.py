@@ -28,10 +28,12 @@ core.info(f"token: \033[36;1m{token}")
 # Debug
 
 
-with core.group("which python"):
-    core.info(functions.check_output(["which", "python"]))
-with core.group("which uv"):
-    core.info(functions.check_output(["which", "uv"]))
+with core.group("python"):
+    functions.check_output(["which", "python"], silent=False)
+    functions.check_output(["python", "-V"], silent=False)
+with core.group("uv"):
+    functions.check_output(["which", "uv"], silent=False)
+    functions.check_output(["uv", "-V"], silent=False)
 
 
 event: dict = core.get_event()
