@@ -7,6 +7,20 @@ dependencies = [
     "actions-tools[github]>=0.2.0",
 ]
 
+[dependency-groups]
+dev = [
+    "bandit",
+    "black",
+    "flake8",
+    "isort",
+    "mypy",
+    "PyGitHub",
+    "pyyaml",
+    "ruff",
+    "yamllint",
+    "types-PyYAML",
+]
+
 #Bandit
 # https://bandit.readthedocs.io/en/latest/config.html
 [tool.bandit]
