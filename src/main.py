@@ -46,19 +46,19 @@ with core.group("GitHub Context Data"):
 
 
 core.start_indent()
-repository: dict = event.get("repository", {})
-html_url: str = repository.get("html_url", "")
-core.info(f"repository.html_url: {html_url}")
-full_name: str = repository.get("full_name", "")
-core.info(f"repository.full_name: {full_name}")
-
-core.start_indent(4)
 core.info(f"context.repository_owner: {context.repository_owner}")
 core.info(f"context.repository_name: {context.repository_name}")
 
 core.info(f"context.repository: {context.repository}")
 core.info(f"context.sha: {context.sha}")
 core.end_indent()
+
+
+repository: dict = event.get("repository", {})
+html_url: str = repository.get("html_url", "")
+core.info(f"repository.html_url: {html_url}")
+full_name: str = repository.get("full_name", "")
+core.info(f"repository.full_name: {full_name}")
 
 
 # Action
