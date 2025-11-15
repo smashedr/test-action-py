@@ -6,6 +6,8 @@ from actions import context, core
 # noinspection PyPackageRequirements
 from github import GithubException
 
+import functions
+
 
 version: str = core.get_version()
 core.info(f"🏳️ Starting Python Test Action - \033[32;1m{version}")
@@ -24,6 +26,13 @@ core.info(f"token: \033[36;1m{token}")
 
 
 # Debug
+
+
+with core.group("which python"):
+    core.info(functions.check_output(["which", "python"]))
+with core.group("which uv"):
+    core.info(functions.check_output(["which", "uv"]))
+
 
 event: dict = core.get_event()
 core.info("::group::GitHub Event Data")
