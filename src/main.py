@@ -52,11 +52,13 @@ full_name: str = repository.get("full_name", "")
 core.info(f"repository.full_name: {full_name}")
 
 
+core.start_indent()
 core.info(f"context.repository_owner: {context.repository_owner}")
 core.info(f"context.repository_name: {context.repository_name}")
 
 core.info(f"context.repository: {context.repository}")
 core.info(f"context.sha: {context.sha}")
+core.end_indent()
 
 
 # Action
