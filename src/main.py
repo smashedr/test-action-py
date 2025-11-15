@@ -24,11 +24,14 @@ core.info(f"token: \033[36;1m{token}")
 
 # Debug
 
-with core.group("Debug UV"):
-    functions.check_output("uv -V", False)
-    functions.check_output("uv python dir", False)
-    functions.check_output("uv tool dir", False)
-    functions.check_output("uv tool list", False)
+functions.check_output("uv -V", False)
+functions.check_output("uv python dir", False)
+functions.check_output("uv tool dir", False)
+functions.check_output("uv tool list", False)
+
+with core.group("uv pip list"):
+    functions.check_output("uv pip list", False)
+with core.group("uv tree"):
     functions.check_output("uv tree", False)
 
 
