@@ -1,6 +1,6 @@
 FROM ghcr.io/astral-sh/uv:python3.13-alpine
 
-LABEL org.opencontainers.image.source="https://github.com/smashedr/py-test-action"
+LABEL org.opencontainers.image.source="https://github.com/smashedr/test-action-py"
 LABEL org.opencontainers.image.description="Python Test Action"
 LABEL org.opencontainers.image.authors="smashedr"
 

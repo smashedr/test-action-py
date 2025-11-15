@@ -1,8 +1,6 @@
 import json
 
 from actions import context, core
-
-# noinspection PyPackageRequirements
 from github import GithubException
 
 import functions
@@ -32,7 +30,6 @@ with core.group("Debug uv"):
     functions.check_output("uv tool dir", False)
     functions.check_output("uv tool list", False)
     functions.check_output("uv tree", False)
-    # functions.check_output("uv pip tree", False)
 
 
 event: dict = core.get_event()
