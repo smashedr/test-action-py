@@ -7,4 +7,5 @@ PyGitHub
 pyyaml
 ruff
 yamllint
+ty
 types-PyYAML
