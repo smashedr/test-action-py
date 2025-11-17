@@ -1,11 +1,8 @@
 bandit
 black
-flake8
 isort
 mypy
-PyGitHub
-pyyaml
 ruff
-yamllint
 ty
 types-PyYAML
+yamllint

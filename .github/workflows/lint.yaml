@@ -126,7 +126,7 @@ jobs:
           echo "::endgroup::"
           "${RUNNER_TEMP}/actionlint" -color -verbose -shellcheck= -pyflakes=
 
-      - name: "Hadolint"
+      - name: "hadolint"
         if: ${{ !cancelled() }}
         uses: hadolint/hadolint-action@v3.3.0
         with:
