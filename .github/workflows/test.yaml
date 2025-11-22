@@ -35,8 +35,7 @@ jobs:
       - name: "Debug event.json"
         if: ${{ !github.event.act }}
         continue-on-error: true
-        run: |
-          cat "${GITHUB_EVENT_PATH}"
+        run: cat "${GITHUB_EVENT_PATH}"
 
       - name: "Debug CTX github"
         if: ${{ !github.event.act }}
@@ -48,8 +47,7 @@ jobs:
       - name: "Debug Environment"
         if: ${{ !github.event.act }}
         continue-on-error: true
-        run: |
-          env
+        run: env
 
       - name: "Test Local Action"
         id: test
@@ -63,17 +61,8 @@ jobs:
             by: ralf
 
       - name: "Validate Outputs"
-        if: ${{ !github.event.act }}
-        env:
-          sha: ${{ steps.test.outputs.sha }}
-        run: |
-          echo "sha: ${sha}"
-          if [ -z "${sha}" ];then
-            echo "No Output: sha"
-            exit 1
-          fi
-          echo "GITHUB_SHA: ${GITHUB_SHA}"
-          if [ "${sha}" != "${GITHUB_SHA}" ];then
-            echo "Invalid Output: sha"
-            exit 1
-          fi
+        uses: cssnr/validate-outputs-action@master
+        with:
+          outputs: ${{ toJSON(steps.test.outputs) }}
+          data: |
+            sha: ${{ github.sha }}

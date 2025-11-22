@@ -97,10 +97,14 @@ if summary:
         inputs_table.append(f"<tr><td>{x}</td><td>{value or '-'}</td></tr>")
     inputs_table.append("</table>")
 
-    core.summary("### Python Test Action")
-    core.summary(f"{result}: [{ref.ref}]({html_url}/releases/tag/{tag}) ➡️ `{context.sha}`")
-    core.summary(f"<details><summary>Inputs</summary>{''.join(inputs_table)}</details>\n")
-    core.summary(f"[Report an issue or request a feature]({html_url}/issues)")
+    core.summary.add_heading("Python Test Action", 3)
+    core.summary.add_raw(f"{result}: [{ref.ref}]({html_url}/releases/tag/{tag}) ➡️ `{context.sha}`")
+    core.summary.add_details("Inputs", "".join(inputs_table))
 
+    core.summary.add_raw(f"[Report an issue or request a feature]({html_url})")
 
-print("✅ \u001b[32;1mFinished Success")
+    summary_string = core.summary.stringify()
+    with core.group("Summary String"):
+        core.info(summary_string)
+
+core.info("✅ \u001b[32;1mFinished Success")
