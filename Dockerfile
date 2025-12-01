@@ -4,9 +4,9 @@ LABEL org.opencontainers.image.source="https://github.com/smashedr/py-test-actio
 LABEL org.opencontainers.image.description="Python Test Action"
 LABEL org.opencontainers.image.authors="smashedr"
 
-COPY requirements.txt /
+COPY pyproject.toml /
 # hadolint ignore=DL3013,DL3042
-RUN python -m pip install -Ur requirements.txt
+RUN python -m pip install --group prod
 
 COPY src /src
 ENTRYPOINT ["python", "/src/main.py"]
