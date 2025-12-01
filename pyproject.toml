@@ -1,3 +1,20 @@
+[dependency-groups]
+prod = ["actions-tools[github]"]
+dev = [
+    "bandit",
+    "black",
+    "isort",
+    "mypy",
+    "ruff",
+    "ty",
+    "types-PyYAML",
+    "yamllint",
+]
+all = [
+    {include-group = "prod"},
+    {include-group = "dev"},
+]
+
 # Bandit
 # https://bandit.readthedocs.io/en/latest/config.html
 [tool.bandit]

@@ -1,9 +1,6 @@
 import json
 
-# noinspection PyPackageRequirements
 from actions import context, core
-
-# noinspection PyPackageRequirements
 from github import GithubException
 
 
