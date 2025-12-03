@@ -3,7 +3,7 @@ name: "Lint"
 on:
   workflow_dispatch:
   push:
-    branches: ["**"]
+    branches: ["master"]
   pull_request:
 
 concurrency:
@@ -110,7 +110,7 @@ jobs:
           echo "::endgroup::"
           yamllint -d '${{ env.CONFIG }}' .
 
-      - name: "Actionlint"
+      - name: "actionlint"
         uses: cssnr/actionlint-action@master
 
       - name: "hadolint"
