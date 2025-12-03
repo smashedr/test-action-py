@@ -5,7 +5,7 @@ LABEL org.opencontainers.image.description="Python Test Action"
 LABEL org.opencontainers.image.authors="smashedr"
 
 COPY pyproject.toml /
-RUN python -m pip install --group prod
+RUN python -m pip install --no-cache-dir --group prod
 
 COPY src /src
 ENTRYPOINT ["python", "/src/main.py"]
