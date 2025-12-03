@@ -5,6 +5,7 @@ LABEL org.opencontainers.image.description="Python Test Action"
 LABEL org.opencontainers.image.authors="smashedr"
 
 COPY pyproject.toml /
+# hadolint ignore=DL3013
 RUN python -m pip install --no-cache-dir --group prod
 
 COPY src /src
