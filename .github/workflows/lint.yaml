@@ -111,6 +111,7 @@ jobs:
           yamllint -d '${{ env.CONFIG }}' .
 
       - name: "actionlint"
+        if: ${{ !cancelled() }}
         uses: cssnr/actionlint-action@master
 
       - name: "hadolint"
